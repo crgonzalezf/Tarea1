@@ -6,7 +6,7 @@ with app.app_context():
     db.create_all()
 
     user = User(email="test@example.org")
-    message = Message(content="Hola! Soy Muby, un recomendador de películas. ¿En qué te puedo ayudar?", author="assistant", user=user)
+    message = Message(content="Hola! Soy CineBot, un recomendador de películas. ¿En qué te puedo ayudar?", author="assistant", user=user)
 
     db.session.add(user)
     db.session.add(message)

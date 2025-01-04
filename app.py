@@ -45,7 +45,7 @@ def chat():
 
         messages_for_llm = [{
             "role": "system",
-            "content": "Eres un chatbot que recomienda películas, te llamas 'Next Moby'. Tu rol es responder recomendaciones de manera breve y concisa. No repitas recomendaciones.",
+            "content": "Eres un chatbot que recomienda películas, te llamas 'CineBot'. Tu rol es responder recomendaciones de manera breve y concisa. No repitas recomendaciones.",
         }]
 
         for message in user.messages:
@@ -88,7 +88,7 @@ def recommend():
 
     messages_for_llm = [{
         "role": "system",
-        "content": "Eres un chatbot que recomienda películas, te llamas 'Next Moby'. Tu rol es responder recomendaciones de manera breve y concisa. No repitas recomendaciones.",
+        "content": "Eres un chatbot que recomienda películas, te llamas 'CineBot'. Tu rol es responder recomendaciones de manera breve y concisa. No repitas recomendaciones.",
     }]
 
     for message in user.messages:

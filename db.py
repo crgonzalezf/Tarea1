@@ -1,21 +1,16 @@
-from dotenv import load_dotenv
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
-import os
+from libsql_client import Client
 
-load_dotenv()
-
-
-class Base(DeclarativeBase):
-    pass
-
-
-db = SQLAlchemy(model_class=Base)
-
-
-def db_config(app):
+def db_config():
     turso_database_url = os.environ.get("TURSO_DATABASE_URL")
     turso_auth_token = os.environ.get("TURSO_AUTH_TOKEN")
-    db_url = f"{turso_database_url}/?authToken={turso_auth_token}&secure=true"
-    app.config["SQLALCHEMY_DATABASE_URI"] = db_url
-    db.init_app(app)
+
+    if not turso_database_url or not turso_auth_token:
+        raise ValueError("Las variables TURSO_DATABASE_URL o TURSO_AUTH_TOKEN no están configuradas")
+
+    # Crear cliente de conexión
+    client = Client(
+        url=turso_database_url,
+        auth_token=turso_auth_token
+    )
+
+    return client

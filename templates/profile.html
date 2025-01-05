@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Perfil de Usuario
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Perfil de Usuario</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="favorite_movie" class="form-label">Película Favorita</label>
+            <input type="text" class="form-control" id="favorite_movie" name="favorite_movie" value="{{ user.favorite_movie }}">
+        </div>
+        <div class="mb-3">
+            <label for="favorite_genre" class="form-label">Género Favorito</label>
+            <input type="text" class="form-control" id="favorite_genre" name="favorite_genre" value="{{ user.favorite_genre }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock %}

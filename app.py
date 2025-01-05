@@ -82,7 +82,7 @@ def recommend():
     user = db.session.query(User).first()
     data = request.get_json()
     user_message = data['message']
-    new_message = Message(content=user_message, author="user", user=user)
+    new_message = Message(content=user_message, author="assistant", user=user)
     db.session.add(new_message)
     db.session.commit()
 

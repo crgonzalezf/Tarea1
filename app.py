@@ -128,15 +128,18 @@ def profile():
 
             db.session.commit()
 
-            # Confirmar actualización y redirigir
-            flash("Perfil actualizado correctamente", "success")
-            return redirect('/profile')
+            # Redirigir con un parámetro de confirmación
+            return redirect('/profile?updated=true')
 
-        return render_template('profile.html', user=user)
+        # Verificar si se actualizó el perfil
+        updated = request.args.get('updated', 'false') == 'true'
+
+        return render_template('profile.html', user=user, updated=updated)
     except Exception as e:
         # Registrar el error en los logs y mostrar un mensaje de error genérico
         app.logger.error(f"Error en /profile: {e}")
         return "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.", 500
+
 
 
 

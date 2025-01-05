@@ -10,7 +10,7 @@
             {% if message.author == 'assistant' %}
                 <div class="d-flex flex-row justify-content-start mb-4">
                     <img class="bg-white" src="{{ url_for('static', filename='muby.png') }}" alt="avatar 1" style="width: 45px; height: 100%;">
-                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(50, 100, 20,.2);">
                         <p class="small mb-0">{{message.content}}</p>
                     </div>
                 </div>
@@ -29,6 +29,10 @@
                 <input type="submit" name="intent" value="Suspenso" class="btn btn-secondary"/>
                 <input type="submit" name="intent" value="Documentales" class="btn btn-secondary"/>
                 <input type="submit" name="intent" value="Drama" class="btn btn-secondary"/>
+            </div>
+           
+           <form method="POST">
+             <div class="input-group mb-3"">
                 <input name="message" required="required" class="form-control" placeholder="Enviar mensaje a CineBot" aria-label="Tu mensaje" aria-describedby="send-message"/>
                 <input type="submit" class="btn btn-primary" id="send-message" name="intent" value="Enviar"/>
             </div>

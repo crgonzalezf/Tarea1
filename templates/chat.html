@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block content %}
+    <h1>CineBot (BETA)</h1>
+    <p>Haz click en el botón de abajo para obtener una recomendación</p>
     <div class="container col-xxl-8 px-4 py-5">
         {% for message in messages %}
             {% if message.author == 'assistant' %}
                 <div class="d-flex flex-row justify-content-start mb-4">
                     <img class="bg-white" src="{{ url_for('static', filename='muby.png') }}" alt="avatar 1" style="width: 45px; height: 100%;">
-                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(50, 100, 20,.2);">
+                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(139, 59, 114,.2);">
                         <p class="small mb-0">{{message.content}}</p>
                     </div>
                 </div>
@@ -37,6 +39,9 @@
                 <input type="submit" class="btn btn-primary" id="send-message" name="intent" value="Enviar"/>
             </div>
         </form>
-    </div>
+       {% if recommendation %}
+            <h2>Recomendación</h2>
+            <p>{{ recommendation }}</p>
+    {% endif %}
 
 {% endblock %}

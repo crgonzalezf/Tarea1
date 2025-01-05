@@ -112,23 +112,31 @@ def recommend():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    user = db.session.query(User).first()
-    
-    if request.method == 'POST':
-        # Recuperar datos del formulario
-        favorite_movie = request.form.get('favorite_movie')
-        favorite_genre = request.form.get('favorite_genre')
-        
-        # Actualizar los datos del usuario
-        if favorite_movie:
-            user.favorite_movie = favorite_movie
-        if favorite_genre:
-            user.favorite_genre = favorite_genre
-        db.session.commit()
-        
-        flash("Perfil actualizado correctamente", "success")
-        return redirect('/profile')
-    
-    return render_template('profile.html', user=user)
+    try:
+        user = db.session.query(User).first()
+
+        if request.method == 'POST':
+            # Recuperar datos del formulario
+            favorite_movie = request.form.get('favorite_movie', '').strip()
+            favorite_genre = request.form.get('favorite_genre', '').strip()
+
+            # Validar y actualizar los datos
+            if favorite_movie:
+                user.favorite_movie = favorite_movie
+            if favorite_genre:
+                user.favorite_genre = favorite_genre
+
+            db.session.commit()
+
+            # Confirmar actualización y redirigir
+            flash("Perfil actualizado correctamente", "success")
+            return redirect('/profile')
+
+        return render_template('profile.html', user=user)
+    except Exception as e:
+        # Registrar el error en los logs y mostrar un mensaje de error genérico
+        app.logger.error(f"Error en /profile: {e}")
+        return "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.", 500
+
 
 

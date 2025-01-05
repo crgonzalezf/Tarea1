@@ -31,8 +31,8 @@ def chat():
     intents = {
         'Quiero tener suerte': 'Recomiéndame una película',
         'Suspenso': 'Recomiéndame una película de suspenso',
-        'Documentales': 'Recomiéndame una película de acción',
-        'Comedia': 'Recomiéndame una película de comedia',
+        'Documentales': 'Recomiéndame documentales',
+        'Drama': 'Recomiéndame una película de drama',
         'Enviar': request.form.get('message')
     }
 

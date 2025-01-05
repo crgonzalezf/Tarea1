@@ -43,11 +43,19 @@ def chat():
         db.session.add(Message(content=user_message, author="user", user=user))
         db.session.commit()
 
+
         messages_for_llm = [{
             "role": "system",
-            "content": "Eres un chatbot que recomienda películas, te llamas 'CineBot'. Tu rol es responder recomendaciones de manera breve y concisa. No repitas recomendaciones.",
+            "content": (
+            f"Eres un chatbot llamado 'CineBot' que recomienda películas. "
+            f"Tu usuario tiene una película favorita llamada '{user.favorite_movie}' "
+            f"y su género favorito es '{user.favorite_genre}'. "
+            f"Usa esta información para proporcionar recomendaciones personalizadas. "
+            f"Tu rol es responder de manera breve y concisa."
+        ),
         }]
-
+        
+      
         for message in user.messages:
             messages_for_llm.append({
                 "role": message.author,

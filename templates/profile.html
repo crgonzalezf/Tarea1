@@ -1,27 +1,23 @@
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    try:
-        user = db.session.query(User).first()
+{% extends 'base.html' %}
 
-        if request.method == 'POST':
-            # Recuperar datos del formulario
-            favorite_movie = request.form.get('favorite_movie', '').strip()
-            favorite_genre = request.form.get('favorite_genre', '').strip()
+{% block title %}
+Perfil de Usuario
+{% endblock %}
 
-            # Validar y actualizar los datos
-            if favorite_movie:
-                user.favorite_movie = favorite_movie
-            if favorite_genre:
-                user.favorite_genre = favorite_genre
+{% block content %}
+<div class="container mt-4">
+    <h1>Perfil de Usuario</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="favorite_movie" class="form-label">Tú Película Favorita es</label>
+            <input type="text" class="form-control" id="favorite_movie" name="favorite_movie" value="{{ user.favorite_movie }}">
+        </div>
+        <div class="mb-3">
+            <label for="favorite_genre" class="form-label">Tú Género Favorito es </label>
+            <input type="text" class="form-control" id="favorite_genre" name="favorite_genre" value="{{ user.favorite_genre }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock %}
 
-            db.session.commit()
-
-            # Confirmar actualización y redirigir
-            flash("Perfil actualizado correctamente", "success")
-            return redirect('/profile')
-
-        return render_template('profile.html', user=user)
-    except Exception as e:
-        # Registrar el error en los logs y mostrar un mensaje de error genérico
-        app.logger.error(f"Error en /profile: {e}")
-        return "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.", 500

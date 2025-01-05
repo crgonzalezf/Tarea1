@@ -6,13 +6,13 @@
 
 {% block content %}
     <h1>CineBot (BETA)</h1>
-    <p>Haz click en el botón de abajo para obtener una recomendación</p>
+    <p>Haz click en alguno de los botones de abajo para obtener una recomendación aleatoria</p>
     <div class="container col-xxl-8 px-4 py-5">
         {% for message in messages %}
             {% if message.author == 'assistant' %}
                 <div class="d-flex flex-row justify-content-start mb-4">
                     <img class="bg-white" src="{{ url_for('static', filename='muby.png') }}" alt="avatar 1" style="width: 45px; height: 100%;">
-                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(139, 59, 114,.2);">
+                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(240, 112, 32,.2);">
                         <p class="small mb-0">{{message.content}}</p>
                     </div>
                 </div>

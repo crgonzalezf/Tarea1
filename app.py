@@ -108,3 +108,27 @@ def recommend():
         'recommendation': message,
         'tokens': chat_completion.usage.total_tokens,
     }
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    user = db.session.query(User).first()
+    
+    if request.method == 'POST':
+        # Recuperar datos del formulario
+        favorite_movie = request.form.get('favorite_movie')
+        favorite_genre = request.form.get('favorite_genre')
+        
+        # Actualizar los datos del usuario
+        if favorite_movie:
+            user.favorite_movie = favorite_movie
+        if favorite_genre:
+            user.favorite_genre = favorite_genre
+        db.session.commit()
+        
+        flash("Perfil actualizado correctamente", "success")
+        return redirect('/profile')
+    
+    return render_template('profile.html', user=user)
+
+

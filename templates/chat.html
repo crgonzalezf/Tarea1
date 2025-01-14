@@ -4,52 +4,48 @@
    🤖 CineBot
 {% endblock %}
 
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+
 {% block content %}
-    <div class="container col-xxl-8 px-4 py-5">
-        <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
-        <p class="lead">Haz click en alguno de los botones de abajo para obtener una recomendación aleatoria</p>
-        
-        <div class="chat-container">
-            {% for message in messages %}
-                {% if message.author == 'assistant' %}
-                    <div class="d-flex flex-row justify-content-start mb-4">
-                        <img class="rounded-circle" src="{{ url_for('static', filename='cinebot.png') }}" alt="avatar 1" style="width: 50px; height: 50px;">
-                        <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237, .2);">
-                            <p class="small mb-0 text-white">{{ message.content }}</p>
-                        </div>
+    {% include 'navbar.html' %}
+
+    <div class="container col-xxl-8 py-5">
+        <div id="messages">
+        {% for message in messages %}
+            {% if message.author == 'assistant' %}
+                <div class="d-flex flex-row justify-content-start mb-4">
+                    <img class="bg-white" src="{{ url_for('static', filename='muby.png') }}" alt="avatar 1" style="width: 45px; height: 100%;">
+                    <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                        <p class="mb-0">{{message.content}}</p>
                     </div>
-                {% else %}
-                    <div class="d-flex flex-row justify-content-end mb-4">
-                        <img class="rounded-circle" src="{{ url_for('static', filename='usuario.png') }}" alt="avatar 1" style="width: 50px; height: 50px;">
-                        <div class="p-3 me-3" style="border-radius: 15px; background-color: rgba(0, 123, 255, .2);">
-                            <p class="small mb-0 text-white">{{ message.content }}</p>
-                        </div>
+                </div>
+            {% else %}
+                <div class="d-flex flex-row justify-content-end mb-4">
+                    <div class="p-3 me-3 border bg-body-tertiary" style="border-radius: 15px;">
+                        <p class="mb-0">{{message.content}}</p>
                     </div>
-                {% endif %}
-            {% endfor %}
+              </div>
+            {% endif %}
+        {% endfor %}
         </div>
 
-  <form method="POST" class="mt-4">
-            <div class="d-flex flex-wrap gap-2">
-                <input type="submit" name="intent" value="Quiero tener suerte" class="btn btn-primary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame una de Suspenso" class="btn btn-secondary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame Documentales" class="btn btn-secondary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame una de Drama" class="btn btn-secondary px-4 py-2 fw-bold"/>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="mb-3">
+                <span>Acciones rápidas:</span>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame una de terror"/>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame una de acción"/>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame una comedia"/>
             </div>
         </form>
-
-        <form method="POST" class="mt-3">
-            <div class="input-group">
-                <input name="message" required class="form-control" placeholder="Enviar mensaje a CineBot" aria-label="Tu mensaje" aria-describedby="send-message">
-                <button type="submit" class="btn btn-primary fw-bold px-4" name="intent" value="Enviar">Enviar</button>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="input-group mb-3">
+                <input id="message" name="message" required="required" class="form-control form-control-lg" placeholder="Enviar mensaje a Muby" aria-label="Tu mensaje" aria-describedby="send-message"/>
+                <input type="submit" class="btn btn-primary btn-lg disabled" id="send-message" name="intent" value="Enviar"/>
             </div>
         </form>
-
-        {% if recommendation %}
-            <div class="mt-4 p-3 bg-light rounded shadow-sm">
-                <h2 class="fw-bold text-primary">Recomendación</h2>
-                <p class="text-dark">{{ recommendation }}</p>
-            </div>
-        {% endif %}
     </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 {% endblock %}

@@ -16,7 +16,7 @@ function onLoad() {
         if (message.author === 'assistant') {
             messageHTML = `
                 <div class="d-flex flex-row justify-content-start mb-4">
-                    <img class="bg-white" src="/static/muby.png" alt="avatar 1" style="width: 45px; height: 100%;">
+                    <img class="bg-white" src="/static/cinebot.png" alt="avatar 1" style="width: 45px; height: 100%;">
                     <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237, .2);">
                         <p class="mb-0">${message.content}</p>
                     </div>

@@ -118,7 +118,7 @@ def recommend():
     }
 
 
-@app.route('/perfil', methods=['GET', 'POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
     try:
         user = db.session.query(User).first()

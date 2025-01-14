@@ -29,27 +29,23 @@
             {% endfor %}
         </div>
 
-        <form method="POST" class="mt-4">
-            <div class="d-flex flex-wrap gap-2">
-                <input type="submit" name="intent" value="Quiero tener suerte" class="btn btn-primary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame una de Suspenso" class="btn btn-secondary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame Documentales" class="btn btn-secondary px-4 py-2 fw-bold"/>
-                <input type="submit" name="intent" value="Recomiéndame una de Drama" class="btn btn-secondary px-4 py-2 fw-bold"/>
+         <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="mb-3">
+                <span>Acciones rápidas:</span>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame una de Suspenso"/>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame una de Drama"/>
+                <input type="submit" class="btn btn-sm btn-outline-light" name="message" value="Recomiéndame Documentales"/>
             </div>
         </form>
-
-        <form method="POST" class="mt-3">
-            <div class="input-group">
-                <input name="message" required class="form-control" placeholder="Enviar mensaje a CineBot" aria-label="Tu mensaje" aria-describedby="send-message">
-                <button type="submit" class="btn btn-primary fw-bold px-4" name="intent" value="Enviar">Enviar</button>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="input-group mb-3">
+                <input id="message" name="message" required="required" class="form-control form-control-lg" placeholder="Enviar mensaje a CineBot" aria-label="Tu mensaje" aria-describedby="send-message"/>
+                <input type="submit" class="btn btn-primary btn-lg disabled" id="send-message" name="intent" value="Enviar"/>
             </div>
         </form>
-
-        {% if recommendation %}
-            <div class="mt-4 p-3 bg-light rounded shadow-sm">
-                <h2 class="fw-bold text-primary">Recomendación</h2>
-                <p class="text-dark">{{ recommendation }}</p>
-            </div>
-        {% endif %}
     </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 {% endblock %}

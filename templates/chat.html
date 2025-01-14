@@ -29,8 +29,9 @@
             {% endfor %}
         </div>
 
-    <form method="POST" class="mt-4">
+  <form method="POST" class="mt-4">
             <div class="d-flex flex-wrap gap-2">
+                <input type="submit" name="intent" value="Quiero tener suerte" class="btn btn-primary px-4 py-2 fw-bold"/>
                 <input type="submit" name="intent" value="Recomiéndame una de Suspenso" class="btn btn-secondary px-4 py-2 fw-bold"/>
                 <input type="submit" name="intent" value="Recomiéndame Documentales" class="btn btn-secondary px-4 py-2 fw-bold"/>
                 <input type="submit" name="intent" value="Recomiéndame una de Drama" class="btn btn-secondary px-4 py-2 fw-bold"/>
@@ -48,9 +49,7 @@
             <div class="mt-4 p-3 bg-light rounded shadow-sm">
                 <h2 class="fw-bold text-primary">Recomendación</h2>
                 <p class="text-dark">{{ recommendation }}</p>
-          </div>
-        </form>
+            </div>
+        {% endif %}
     </div>
-
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 {% endblock %}

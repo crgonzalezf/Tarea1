@@ -215,43 +215,9 @@ def profile():
         return "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.", 500
 
 
-@app.route('/sign-up', methods=['GET', 'POST'])
-def sign_up():
-    form = SignUpForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            email = form.email.data
-            password = form.password.data
-            user = User(email=email, password_hash=bcrypt.generate_password_hash(password).decode('utf-8'))
-            db.session.add(user)
-            db.session.commit()
-            login_user(user)
-            return redirect(url_for('chat'))
-    return render_template('sign-up.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
 
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            email = form.email.data
-            password = form.password.data
-            user = db.session.query(User).filter_by(email=email).first()
-            if user and bcrypt.check_password_hash(user.password_hash, password):
-                login_user(user)
-                return redirect('chat')
-
-            flash("El correo o la contraseña es incorrecta.", "error")
-
-    return render_template('log-in.html', form=form)
-
-
-@app.get('/logout')
-def logout():
-    logout_user()
-    return redirect('/')
 
 
 

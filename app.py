@@ -1,16 +1,37 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, flash, jsonify
 from flask_bootstrap import Bootstrap5
 from openai import OpenAI
 from dotenv import load_dotenv
 from db import db, db_config
 from models import User, Message
+from forms import ProfileForm, SignUpForm, LoginForm
+from flask_wtf.csrf import CSRFProtect
+from os import getenv
+import json
+from bot import search_movie_or_tv_show, where_to_watch
+from flask_login import LoginManager, login_required, login_user, current_user, logout_user
+from flask_bcrypt import Bcrypt
+from flask import redirect, url_for
+from langsmith.wrappers import wrap_openai
 
 load_dotenv()
 
-client = OpenAI()
+login_manager = LoginManager()
+login_manager.login_view = 'login'
+login_manager.login_message = 'Inicia sesión para continuar'
+client = wrap_openai(OpenAI())
 app = Flask(__name__)
+app.secret_key = getenv('SECRET_KEY')
 bootstrap = Bootstrap5(app)
+csrf = CSRFProtect(app)
+login_manager.init_app(app)
+bcrypt = Bcrypt(app)
 db_config(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')

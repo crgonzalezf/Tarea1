@@ -4,6 +4,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from db import db, db_config
 from models import User, Message
+from flask import url_for
 
 load_dotenv()
 

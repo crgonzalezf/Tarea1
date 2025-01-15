@@ -188,6 +188,14 @@ def logout():
     logout_user()
     return redirect('/')
 
+@app.route('/clear-chat', methods=['POST'])
+def clear_chat():
+    user = db.session.query(User).first() 
+    user.messages.clear()  
+    db.session.commit() 
+    flash("Historial del chat borrado correctamente.", "success")
+    return redirect('/chat') 
+
 
 
 

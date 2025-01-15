@@ -10,14 +10,7 @@
     {% include 'navbar.html' %}
 
     <div class="container col-xxl-8 px-4 py-5">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
-            
-            <!-- Botón para borrar el historial del chat -->
-            <form method="POST" action="/clear-chat" class="d-inline">
-                <button type="submit" class="btn btn-sm btn-danger">Borrar historial</button>
-            </form>
-        </div>
+        <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
         <p class="lead">Haz click en alguno de los botones de abajo para obtener una recomendación aleatoria</p>
 
         <!-- Botones de recomendación -->
@@ -28,6 +21,13 @@
                 <input type="submit" name="intent" value="Recomiéndame una de Drama" class="btn btn-secondary px-4 py-2 fw-bold"/>
             </div>
         </form>
+
+        <!-- Botón de borrar historial -->
+        <div class="d-flex justify-content-end mb-4">
+            <form action="{{ url_for('clear_chat') }}" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Borrar Historial</button>
+            </form>
+        </div>
 
         <!-- Contenedor del chat -->
         <div class="chat-container">

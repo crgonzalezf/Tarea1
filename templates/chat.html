@@ -10,7 +10,14 @@
     {% include 'navbar.html' %}
 
     <div class="container col-xxl-8 px-4 py-5">
-        <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
+            
+            <!-- Botón para borrar el historial del chat -->
+            <form method="POST" action="/clear-chat" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-danger">Borrar historial</button>
+            </form>
+        </div>
         <p class="lead">Haz click en alguno de los botones de abajo para obtener una recomendación aleatoria</p>
 
         <!-- Botones de recomendación -->
@@ -23,7 +30,7 @@
         </form>
 
         <!-- Contenedor del chat -->
-      <div class="chat-container">
+        <div class="chat-container">
             {% for message in messages %}
                 {% if message.author == 'assistant' %}
                     <div class="d-flex flex-row justify-content-start mb-4">
@@ -42,7 +49,6 @@
                 {% endif %}
             {% endfor %}
         </div>
-
 
         <!-- Campo para escribir mensaje -->
         <form method="POST" class="mt-3">

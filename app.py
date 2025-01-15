@@ -190,11 +190,15 @@ def logout():
 
 @app.route('/clear-chat', methods=['POST'])
 def clear_chat():
-    user = db.session.query(User).first() 
-    user.messages.clear()  
-    db.session.commit() 
-    flash("Historial del chat borrado correctamente.", "success")
-    return redirect('/chat') 
+    try:
+        user = db.session.query(User).first()
+        if user:
+            db.session.query(Message).filter_by(user_id=user.id).delete()
+            db.session.commit()
+        return redirect(url_for('chat'))
+    except Exception as e:
+        app.logger.error(f"Error al borrar el historial del chat: {e}")
+        return "Ha ocurrido un error al borrar el historial del chat.", 500
 
 
 

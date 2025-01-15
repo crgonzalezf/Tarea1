@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from db import db, db_config
 from models import User, Message
 from flask import url_for
+from forms import ProfileForm, SignUpForm, LoginForm
+
 
 load_dotenv()
 

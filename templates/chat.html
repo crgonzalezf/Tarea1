@@ -23,7 +23,7 @@
             {% for message in messages %}
                 {% if message.author == 'assistant' %}
                     <div class="d-flex flex-row justify-content-start mb-4">
-                        <img class="rounded-circle" src="{{ url_for('static', filename='avatar_assistant.png') }}" alt="avatar 1" style="width: 50px; height: 50px;">
+                        <img class="rounded-circle" src="{{ url_for('static', filename='usuario.png') }}" alt="avatar 1" style="width: 50px; height: 50px;">
                         <div class="p-3 ms-3" style="border-radius: 15px; background-color: rgba(57, 192, 237, .2); color: white;">
                             <p class="small mb-0 text-dark">{{ message.content }}</p>
                         </div>

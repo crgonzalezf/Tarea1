@@ -4,7 +4,11 @@
     🤖 CineBot
 {% endblock %}
 
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+
 {% block content %}
+    {% include 'navbar.html' %}
+
     <div class="container col-xxl-8 px-4 py-5">
         <h1 class="display-5 fw-bold lh-1 mb-3">🤖 CineBot</h1>
         <p class="lead">Haz click en alguno de los botones de abajo para obtener una recomendación aleatoria</p>

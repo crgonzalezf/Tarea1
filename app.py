@@ -124,33 +124,36 @@ def recommend():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
+    form = ProfileForm()  # Instancia de ProfileForm
     try:
-        user = db.session.query(User).first()
+        user = db.session.query(User).first()  # Obtener usuario desde la base de datos
 
         if request.method == 'POST':
-            # Recuperar datos del formulario
-            favorite_movie = request.form.get('favorite_movie', '').strip()
-            favorite_genre = request.form.get('favorite_genre', '').strip()
+            if form.validate_on_submit():
+                # Recuperar datos del formulario
+                favorite_movie = form.favorite_movie.data.strip()
+                favorite_genre = form.favorite_genre.data.strip()
 
-            # Validar y actualizar los datos
-            if favorite_movie:
-                user.favorite_movie = favorite_movie
-            if favorite_genre:
-                user.favorite_genre = favorite_genre
+                # Validar y actualizar los datos
+                if favorite_movie:
+                    user.favorite_movie = favorite_movie
+                if favorite_genre:
+                    user.favorite_genre = favorite_genre
 
-            db.session.commit()
+                db.session.commit()
 
-            # Redirigir con un parámetro de confirmación
-            return redirect('/profile?updated=true')
+                # Redirigir con un parámetro de confirmación
+                return redirect('/profile?updated=true')
 
         # Verificar si se actualizó el perfil
         updated = request.args.get('updated', 'false') == 'true'
 
-        return render_template('profile.html', user=user, updated=updated)
+        return render_template('profile.html', user=user, updated=updated, form=form)
     except Exception as e:
         # Registrar el error en los logs y mostrar un mensaje de error genérico
         app.logger.error(f"Error en /profile: {e}")
         return "Ha ocurrido un error en el servidor. Por favor, inténtalo de nuevo más tarde.", 500
+
 
 
 @app.route('/sign-up', methods=['GET', 'POST'])
